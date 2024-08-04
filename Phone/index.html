@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InkinoLive | Sign up Page</title>
+    <link
+      rel="shortcut icon"
+      href="../images/images/add.png"
+      type="image/x-icon"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/intl-tel-input@20.3.0/build/css/intlTelInput.min.css
+"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        /* background: cadetblue; */
+        font-family: "Poppins", sans-serif;
+      }
+
+      .container {
+        max-width: 700px;
+        width: 100%;
+        background: #ffffff;
+        border-radius: 0.5rem;
+        box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1),
+          0px 5px 12px -2px rgba(0, 0, 0, 0.1),
+          0px 18px 36px -6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin: 10px;
+      }
+
+      .container .title {
+        padding: 15px;
+        text-align: center;
+        background: #f6f8fa;
+      }
+
+      .container .title p {
+        font-size: 25px;
+        font-weight: 500;
+        position: relative;
+      }
+      .user_details {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 25px;
+      }
+
+      .user_details .input_box {
+        width: calc(100% / 2 - 20px);
+        margin: 0 0 12px 0;
+      }
+
+      .input_box label {
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .input_box label::after {
+        content: " *";
+        color: red;
+      }
+
+      .input_box input {
+        width: 100%;
+        height: 30px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        font-size: 14px;
+        padding-left: 15px;
+        box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+        background-color: #f6f8fa;
+        font-family: "Poppins", sans-serif;
+        transition: all 120ms ease-out 0s;
+      }
+
+      select {
+        width: 32%;
+        height: 30px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        font-size: 14px;
+        padding-left: 15px;
+        box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+        background-color: #f6f8fa;
+        font-family: "Poppins", sans-serif;
+        transition: all 120ms ease-out 0s;
+      }
+      .check_box {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+      }
+      .check_box a {
+        color: #be2edd;
+        text-decoration: none;
+      }
+      .check_box input {
+        display: flex;
+        align-items: center;
+        height: 15px;
+        accent-color: #be2edd;
+        width: 15px;
+      }
+      .check_box label {
+        margin-left: 8px;
+        font-size: 16px;
+        color: #333;
+      }
+      .input_box input:focus,
+      .input_box input:valid {
+        box-shadow: 0px 0px 0px 2px #ac8ece;
+      }
+
+      form .gender {
+        padding: 0px 25px;
+      }
+
+      .gender .gender_title {
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      .gender .category {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0;
+      }
+
+      .gender .category label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .gender .category label .dot {
+        height: 18px;
+        width: 18px;
+        background: #d9d9d9;
+        border-radius: 50%;
+        margin-right: 10px;
+        border: 4px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      #radio_1:checked ~ .category label .one,
+      #radio_2:checked ~ .category label .two,
+      #radio_3:checked ~ .category label .three {
+        border-color: #d9d9d9;
+        background: #d64141;
+      }
+
+      .gender input {
+        display: none;
+      }
+
+      .reg_btn {
+        padding: 20px;
+      }
+
+      .reg_btn input {
+        height: 45px;
+        width: 100%;
+        border: none;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+        background: linear-gradient(to right, #f37a65, #d64141);
+        border-radius: 5px;
+        color: #ffffff;
+        letter-spacing: 1px;
+        text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .reg_btn input:hover {
+        background: linear-gradient(to right, #d64141, #f37a65);
+      }
+
+      @media screen and (max-width: 584px) {
+        /* .user_details{
+        max-height: 340px;
+        overflow-y: scroll;
+    } */
+
+        .user_details::-webkit-scrollbar {
+          width: 0;
+        }
+
+        .user_details .input_box {
+          width: 100%;
+        }
+
+        .gender .category {
+          width: 100%;
+        }
+      }
+
+      @media screen and (max-width: 419px) {
+        .gender .category {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        <p>Create your Free Account</p>
+      </div>
+
+      <form action="" method="POST" id="form">
+        <div class="user_details">
+          <div class="input_box">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div class="input_box">
+            <label for="username">Surname</label>
+            <input
+              type="text"
+              name="surname"
+              id="surname"
+              placeholder="Enter your surname"
+              required
+            />
+          </div>
+          <div class="input_box">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div class="input_box">
+            <label for="phone">Phone Number</label>
+            <input type="tel" name="phone" id="phone" required />
+          </div>
+          <div class="input_box">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <div class="input_box">
+            <label for="password">Confirm Password</label>
+            <input
+              type="password"
+              name="passwordconf"
+              id="confirm-password"
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
+          <div class="input_box">
+            <label for="birth">Birthday</label>
+            <select name="month">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <select name="day"></select>
+            <select name="year"></select>
+          </div>
+          <div class="check_box">
+            <input type="checkbox" name="accepted" id="toggleInput" />
+            <label for=""
+              >By signing up, you agree to InkinoLive’s
+              <a href="">Terms of Use</a> and
+              <a href="">Privacy Policy</a> .</label
+            >
+          </div>
+        </div>
+        <div class="reg_btn">
+          <input
+            id="textInput"
+            type="submit"
+            value="Create an account"
+            name="save"
+            disabled
+          />
+        </div>
+      </form>
+    </div>
+
+    <!-- Js for year -->
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@20.3.0/build/js/intlTelInput.min.js"></script>
+    <script>
+      const checkbox = document.getElementById("toggleInput");
+      const inputtext = document.getElementById("textInput");
+      checkbox.addEventListener("change", function () {
+        if (this.checked) {
+          inputtext.disabled = false; // Enable the input
+        } else {
+          inputtext.disabled = true; // Disable the input
+        }
+      });
+      var ysel = document.getElementsByName("year")[0],
+        msel = document.getElementsByName("month")[0],
+        dsel = document.getElementsByName("day")[0];
+      for (var i = new Date().getUTCFullYear(); i >= 1902; i--) {
+        var opt = new Option();
+        opt.value = opt.text = i;
+        ysel.add(opt);
+      }
+      ysel.addEventListener("change", validate_date);
+      msel.addEventListener("change", validate_date);
+
+      function validate_date() {
+        var y = +ysel.value,
+          m = msel.value,
+          d = dsel.value;
+        if (m === "2")
+          var mlength = 28 + (!(y & 3) && (y % 100 !== 0 || !(y & 15)));
+        else
+          var mlength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1];
+        dsel.length = 0;
+        for (var i = 1; i <= mlength; i++) {
+          var opt = new Option();
+          opt.value = opt.text = i;
+          if (i == d) opt.selected = true;
+          dsel.add(opt);
+        }
+      }
+      validate_date();
+    </script>
+    <script>
+      const input = document.querySelector("#phone");
+      // initialise plugin  to auto detect country
+      const iti = window.intlTelInput(input, {
+        initialCountry: "auto",
+        nationalMode: true,
+        strictMode: true,
+        showSelectedDialCode: true,
+        utilsScript:
+          "https://cdn.jsdelivr.net/npm/intl-tel-input@20.3.0/build/js/utils.js",
+        geoIpLookup: function (callback) {
+          fetch("https://ipapi.co/json")
+            .then(function (res) {
+              return res.json();
+            })
+            .then(function (data) {
+              callback(data.country_code);
+            })
+            .catch(function (data) {
+              callback(data.country_code);
+            });
+        },
+      });
+      input.addEventListener("input", function (e) {
+        const val = e.target.value;
+        if (val.length === 1) {
+          if (val.charAt(0) !== "+") {
+            const code = iti.getSelectedCountryData().dialCode;
+            e.target.value = `+${code}${val}`;
+          }
+          iti.setCountry("auto");
+        }
+        input.focus();
+      });
+      // before sumbmit form check if passwords matches and have a length in 6 and 8 chars
+      document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirm-password").value;
+        if (password !== confirmPassword) {
+          alert("Passwords do not match");
+          return;
+        }
+        if (password.length < 6) {
+          alert("Password must be at least 6 characters");
+          return;
+        }
+        // submit form by waiting 50s and show success message
+        setTimeout(function () {
+          alert("User Created  successfully . let we check your email !");
+        }, 5000);
+        document.getElementById("form").submit();
+      });
+    </script>
+  </body>
+</html>

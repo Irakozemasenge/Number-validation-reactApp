@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phone Number Validation Example</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/intl-tel-input@20.3.0/build/css/intlTelInput.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        max-width: 600px;
+        width: 100%;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .example {
+        font-size: 0.875rem;
+        color: #666;
+      }
+      .error {
+        color: red;
+        font-size: 0.875rem;
+      }
+      .submit-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Phone Number Validation</h2>
+      <form id="phone-form">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Enter your phone number"
+            required
+          />
+          <div id="error-message" class="error"></div>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@20.3.0/build/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@20.3.0/build/js/utils.js"></script>
+    <script>
+      // Initialize the intl-tel-input plugin
+      const input = document.querySelector("#phone");
+      const iti = window.intlTelInput(input, {
+        initialCountry: "auto",
+        nationalMode: true,
+        strictMode: true,
+        utilsScript:
+          "https://cdn.jsdelivr.net/npm/intl-tel-input@20.3.0/build/js/utils.js",
+        geoIpLookup: function (callback) {
+          fetch("https://ipapi.co/json")
+            .then((res) => res.json())
+            .then((data) => callback(data.country_code))
+            .catch(() => callback("US")); // Default to US if lookup fails
+        },
+      });
+
+      // Validate phone number on form submission
+      document
+        .querySelector("#phone-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const phoneNumber = iti.getNumber();
+          const errorMessage = document.querySelector("#error-message");
+
+          if (!iti.isValidNumber()) {
+            errorMessage.textContent =
+              "Invalid phone number. Please enter a valid phone number.";
+          } else {
+            errorMessage.textContent = "";
+            alert("Phone number is valid!");
+            // Perform further form submission tasks here, like sending data to a server
+          }
+        });
+
+      // Ensure the phone input always starts with the correct international code
+      input.addEventListener("input", function (e) {
+        const val = e.target.value;
+        if (val.length === 1 && val.charAt(0) !== "+") {
+          const code = iti.getSelectedCountryData().dialCode;
+          e.target.value = `+${code}${val}`;
+        }
+      });
+    </script>
+  </body>
+</html>
